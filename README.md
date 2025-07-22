@@ -15,7 +15,7 @@ bash
 Copy
 Edit
 # 1. Clone repo
-git clone https://github.com/your-username/chat-app.git && cd chat-app
+git clone https://github.com/Shahid7424/local-chatgpt-with-ollama.git && cd chat-app
 
 # 2. Start PostgreSQL & run schema
 psql -U postgres -d chatapp -f database/schema.sql
