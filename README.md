@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+Local ChatGPT Clone using Ollama + PostgreSQL
 
-First, run the development server:
+# Tech Stack
+Frontend: Next.js, React, Tailwind CSS
 
-```bash
+Backend: Node.js, Express
+
+Database: PostgreSQL
+
+LLM: Ollama (gemma3:1b)
+
+# Setup Instructions
+bash
+Copy
+Edit
+# 1. Clone repo
+git clone https://github.com/Shahid7424/local-chatgpt-with-ollama.git && cd chat-app
+
+# 2. Start PostgreSQL & run schema
+psql -U postgres -d chatapp -f database/schema.sql
+
+# 3. Run Ollama (already installed)
+ollama run gemma3:1b
+
+# 4. Backend
+cd backend
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# 5. Frontend
+cd frontend
+npm install
+npm run dev
+# Assumptions
+Only 1 user/session at a time
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+No authentication implemented
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Ollama must be running locally on port 11434
+# Features
+Chat interface with streaming responses
 
-## Learn More
+New chat button
 
-To learn more about Next.js, take a look at the following resources:
+Message persistence to PostgreSQL
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Powered by local LLM (gemma3:1b)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+#-- database/schema.sql
+CREATE TABLE chats (
+  id SERIAL PRIMARY KEY,
+  role VARCHAR(20) NOT NULL,
+  content TEXT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
